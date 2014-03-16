@@ -1,0 +1,11 @@
+The "redmine_api" module allows you to:
+
+- Authorize in Redmine system using API key or plain user/password data.
+- Add new versions.
+- Open/Lock/Close existing versions.
+- Obtain list of all issues assigned to given version number.
+
+The module should not be considered as a full-fledged Redmine API for Python. 
+Initially, it was developed to get the changes list for the C++ project that is being built under Jenkins CI.
+
+P.S. thx 'svv' for his ideas and code pieces.
