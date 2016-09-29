@@ -57,6 +57,9 @@ class Redmine():
 		request = self.redmine_url + '/projects/%s/versions.json' % self.project
 		return urllib2.urlopen(request).read()
 
+	def setVersionDescription(self, version, description):
+		self.__changeVersionDescription(version, description)
+
 	# Create new version
 	def addVersion(self, version):
 		headers = {'Content-type': 'application/json'};
@@ -110,6 +113,21 @@ class Redmine():
 				'id' : versionId, 
 				'status' : status,
 				'effective_date' : str(date.today())
+			}})
+
+		headers = {'Content-type': 'application/json'};
+		request_str = self.redmine_url + '/versions/%s.json' % (versionId)
+		req = urllib2.Request(request_str, data, headers)		
+		req.get_method = lambda: 'PUT'
+		urllib2.urlopen(req).read()
+
+	def __changeVersionDescription(self, version, description):
+		versionId = self.__versionId(version)
+
+		data = json.dumps({
+				'version' : { 
+				'id' : versionId,
+				'description' : description
 			}})
 
 		headers = {'Content-type': 'application/json'};
